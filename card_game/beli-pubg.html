@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Up PUBG Mobile - BabaStore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../utama.css">
+    <style>
+        body {
+            background: radial-gradient(circle at top, #163e2e 0%, #123326 60%, #0b0f0d 100%);
+            background-attachment: fixed;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif;
+        }
+
+        .order-container {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        .product-info {
+            position: sticky;
+            top: 110px;
+            background: #121815;
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid #1c2621;
+            color: #ffffff;
+            height: fit-content;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .product-banner {
+            width: calc(100% + 60px);
+            height: 160px;
+            background: linear-gradient(135deg, #1e2924 0%, #121815 100%);
+            border-radius: 24px 24px 0 0;
+            margin: -30px -30px 25px -30px;
+            border: none;
+            border-bottom: 1px solid #1c2621;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .product-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            padding: 10px;
+        }
+
+        .product-info h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .product-info p {
+            color: #94a3b8;
+            font-size: 14.5px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .product-info ul {
+            list-style: none;
+            padding: 0;
+            border-top: 1px solid #1c2621;
+            padding-top: 20px;
+        }
+
+        .product-info ul li {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        .product-info ul li::before {
+            content: '⚡';
+            color: #10b981;
+            font-size: 16px;
+        }
+
+        .form-section {
+            background: #121815;
+            padding: 35px;
+            border-radius: 24px;
+            border: 1px solid #1c2621;
+            color: #ffffff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-group {
+            margin-bottom: 28px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.5px solid #1c2621;
+            background: #0b0f0d;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+        }
+
+        .nominal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .nominal-item {
+            position: relative;
+            background: #0b0f0d;
+            padding: 18px 12px;
+            text-align: center;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 1.5px solid #1c2621;
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e1;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .check-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: #10b981;
+            color: #ffffff;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+            border: 2px solid #121815;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .nominal-item.active .check-badge {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .nominal-item.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+            color: #ffffff;
+        }
+
+        .nominal-item b {
+            display: block;
+            margin-top: 6px;
+            color: #10b981;
+            font-size: 15px;
+        }
+
+        .nominal-item:hover {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .btn-order {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            border: none;
+            padding: 16px 30px;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-family: 'Poppins', sans-serif;
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-order:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* --- Form Step Labels & Glowing Badges --- */
+        .form-step-label {
+            display: flex !important;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            color: #ffffff;
+        }
+
+        .step-badge {
+            background: #10b981;
+            color: #ffffff;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            flex-shrink: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* --- Payment Accordion --- */
+        .payment-accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 10px;
+        }
+
+        .accordion-item {
+            background: #121815;
+            border: 1px solid #1c2621;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .accordion-header .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .payment-group-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .payment-group-icon.green-bg {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+        }
+
+        .payment-group-text h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .payment-group-text span {
+            font-size: 12.5px;
+            color: #94a3b8;
+            font-weight: 500;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .chevron-icon {
+            color: #94a3b8;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .accordion-item.active .chevron-icon {
+            transform: rotate(180deg);
+            color: #10b981;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 20px 24px;
+            border-top: 1px solid #1c2621;
+            background: #0e1210;
+        }
+
+        /* --- Payment Option Cards --- */
+        .payment-option-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #0b0f0d;
+            border: 1.5px solid #1c2621;
+            border-radius: 12px;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .payment-option-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .payment-option-card:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .payment-option-card .option-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .payment-logo-container {
+            width: 72px;
+            height: 38px;
+            border-radius: 8px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            padding: 4px;
+            flex-shrink: 0;
+        }
+
+        .payment-name {
+            font-size: 14.5px;
+            font-weight: 700;
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            transition: color 0.3s ease;
+        }
+
+        .option-check {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #10b981;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid rgba(16, 185, 129, 0.1);
+        }
+
+        .payment-option-card.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.1);
+        }
+
+        .payment-option-card.active .payment-name {
+            color: #10b981;
+        }
+
+        .payment-option-card.active .option-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .order-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header (Copy dari utama.html dengan path link relative) -->
+    <header class="main-header">
+        <div class="header-left">
+            <a href="../utama.html" class="logo">
+                <img src="../images/logo.png" alt="BabaStore Logo" style="width: 42px; height: 42px; object-fit: contain;">
+                <span class="logo-text">BabaStore</span>
+            </a>
+        </div>
+        <div class="header-center">
+            <div class="search-bar-container">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z"
+                        stroke="#111111" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M21 21L16.65 16.65" stroke="#111111" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <input type="text" placeholder="Cari game..." />
+            </div>
+        </div>
+        <div class="header-right">
+            <ul class="nav-links">
+                <li><a href="../utama.html">Home</a></li>
+                <li><a href="#" class="active">Top Up Game</a></li>
+                <li><a href="#">App Pro</a></li>
+                <li><a href="#">Bantuan</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="order-container">
+        <!-- Info Produk -->
+        <div class="product-info">
+            <div class="product-banner">
+                <img src="../images/pubg.jpg" alt="PUBG Mobile Banner">
+            </div>
+            <h2>PUBG Mobile</h2>
+            <p>Isi ulang Unknown Cash (UC) PUBG Mobile dengan aman dan instan di babastore harga kompetitif dan pengiriman 24/7.</p>
+            <ul>
+                <li>Proses 1-5 Menit</li>
+                <li>Layanan 24 Jam</li>
+                <li>Legal 100%</li>
+            </ul>
+        </div>
+
+        <!-- Form Pemesanan -->
+        <div class="form-section">
+            <div class="input-group">
+                <label class="form-step-label">
+                    <span class="step-badge">1</span>
+                    Masukkan Character ID
+                </label>
+                <div style="display: flex; gap: 12px;">
+                    <input type="text" placeholder="Masukkan Character ID">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="form-step-label">
+                    <span class="step-badge">2</span>
+                    Pilih Nominal UC
+                </label>
+                <input type="hidden" id="selected-nominal" value="">
+                <div class="nominal-grid">
+                    <div class="nominal-item" onclick="selectNominal(this, '30 UC', 'Rp 7.000')">
+                        <span class="check-badge">✓</span>
+                        30 UC
+                        <b>Rp 7.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '60 UC', 'Rp 14.000')">
+                        <span class="check-badge">✓</span>
+                        60 UC
+                        <b>Rp 14.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '325 UC', 'Rp 70.000')">
+                        <span class="check-badge">✓</span>
+                        325 UC
+                        <b>Rp 70.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '660 UC', 'Rp 140.000')">
+                        <span class="check-badge">✓</span>
+                        660 UC
+                        <b>Rp 140.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '1800 UC', 'Rp 350.000')">
+                        <span class="check-badge">✓</span>
+                        1800 UC
+                        <b>Rp 350.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '3850 UC', 'Rp 700.000')">
+                        <span class="check-badge">✓</span>
+                        3850 UC
+                        <b>Rp 700.000</b>
+                    </div>
+                    <div class="nominal-item" onclick="selectNominal(this, '8100 UC', 'Rp 1.400.000')">
+                        <span class="check-badge">✓</span>
+                        8100 UC
+                        <b>Rp 1.400.000</b>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="form-step-label">
+                    <span class="step-badge">3</span>
+                    Informasi Kontak
+                </label>
+                <div style="display: flex; gap: 12px;">
+                    <input type="text" placeholder="Masukkan Email">
+                    <input type="text" placeholder="Masukkan Nomor Telepon">
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label class="form-step-label">
+                    <span class="step-badge">4</span>
+                    Pilih Metode Pembayaran
+                </label>
+                <input type="hidden" id="selected-payment" value="">
+
+                <div class="payment-accordion">
+                    <!-- Item 1: QRIS -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="header-left">
+                                <div class="payment-group-icon green-bg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="14" width="7" height="7"></rect>
+                                        <rect x="3" y="14" width="7" height="7"></rect>
+                                    </svg>
+                                </div>
+                                <div class="payment-group-text">
+                                    <h3>QRIS</h3>
+                                    <span>1 metode tersedia</span>
+                                </div>
+                            </div>
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="payment-option-card" onclick="selectPayment(this, 'QRIS')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="font-weight: 900; color: #10b981; font-size: 14px; font-family: 'Poppins', sans-serif;">QRIS</span>
+                                    </div>
+                                    <span class="payment-name">QRIS</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: E-Money -->
+                    <div class="accordion-item active">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="header-left">
+                                <div class="payment-group-icon green-bg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                                    </svg>
+                                </div>
+                                <div class="payment-group-text">
+                                    <h3>Emoney</h3>
+                                    <span>3 metode tersedia</span>
+                                </div>
+                            </div>
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                        <div class="accordion-content" style="display: block;">
+                            <div class="payment-option-card" onclick="selectPayment(this, 'DANA')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #008fca; font-weight: 800; font-size: 13px; font-family: 'Poppins', sans-serif;">DANA</span>
+                                    </div>
+                                    <span class="payment-name">DANA</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                            <div class="payment-option-card" onclick="selectPayment(this, 'GOPAY')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #00a2b9; font-weight: 800; font-size: 12px; font-family: 'Poppins', sans-serif;">gopay</span>
+                                    </div>
+                                    <span class="payment-name">GOPAY</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                            <div class="payment-option-card" onclick="selectPayment(this, 'SHOPEEPAY')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #ee4d2d; font-weight: 800; font-size: 11px; font-family: 'Poppins', sans-serif;">ShopeePay</span>
+                                    </div>
+                                    <span class="payment-name">SHOPEEPAY</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Virtual Account -->
+                    <div class="accordion-item">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="header-left">
+                                <div class="payment-group-icon green-bg">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="payment-group-text">
+                                    <h3>Virtual Account</h3>
+                                    <span>4 metode tersedia</span>
+                                </div>
+                            </div>
+                            <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 9l6 6 6-6" />
+                            </svg>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="payment-option-card" onclick="selectPayment(this, 'Bank Mandiri')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #1e3a8a; font-weight: 800; font-size: 11px; font-family: 'Poppins', sans-serif;">MANDIRI</span>
+                                    </div>
+                                    <span class="payment-name">Bank Mandiri</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                            <div class="payment-option-card" onclick="selectPayment(this, 'Bank BNI')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #f97316; font-weight: 800; font-size: 13px; font-family: 'Poppins', sans-serif;">BNI</span>
+                                    </div>
+                                    <span class="payment-name">Bank BNI</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                            <div class="payment-option-card" onclick="selectPayment(this, 'Bank BRI')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #0284c7; font-weight: 800; font-size: 13px; font-family: 'Poppins', sans-serif;">BRI</span>
+                                    </div>
+                                    <span class="payment-name">Bank BRI</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                            <div class="payment-option-card" onclick="selectPayment(this, 'Bank BCA')">
+                                <div class="option-left">
+                                    <div class="payment-logo-container">
+                                        <span
+                                            style="color: #0369a1; font-weight: 800; font-size: 13px; font-family: 'Poppins', sans-serif;">BCA</span>
+                                    </div>
+                                    <span class="payment-name">Bank BCA</span>
+                                </div>
+                                <div class="option-check">✓</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-order">Beli Sekarang</button>
+        </div>
+    </div>
+
+    <script>
+        function selectNominal(element, uc, price) {
+            const items = document.querySelectorAll('.nominal-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('selected-nominal').value = uc;
+        }
+
+        function toggleAccordion(header) {
+            const item = header.parentElement;
+            const content = item.querySelector('.accordion-content');
+            const isActive = item.classList.contains('active');
+            if (isActive) {
+                item.classList.remove('active');
+                content.style.display = 'none';
+            } else {
+                item.classList.add('active');
+                content.style.display = 'block';
+            }
+        }
+
+        function selectPayment(card, paymentName) {
+            const cards = document.querySelectorAll('.payment-option-card');
+            cards.forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            document.getElementById('selected-payment').value = paymentName;
+        }
+
+        document.querySelector('.btn-order').addEventListener('click', function () {
+            const userId = document.querySelector('input[placeholder="Masukkan Character ID"]').value.trim();
+            const email = document.querySelector('input[placeholder*="Email"]').value.trim();
+            const phone = document.querySelector('input[placeholder*="Nomor"]').value.trim();
+            const nominal = document.getElementById('selected-nominal').value;
+            const payment = document.getElementById('selected-payment').value;
+
+            if (!userId) {
+                alert('Silakan lengkapi formulir ID/Akun Anda!');
+                return;
+            }
+            if (!nominal) {
+                alert('Silakan pilih nominal produk terlebih dahulu!');
+                return;
+            }
+            if (!payment) {
+                alert('Silakan pilih Metode Pembayaran Anda!');
+                return;
+            }
+
+            // Get selected price from active nominal element
+            const activeNominalEl = document.querySelector('.nominal-item.active');
+            const priceText = activeNominalEl ? activeNominalEl.querySelector('b').innerText : 'Rp -';
+
+            // Store active order globally
+            window.activeOrder = {
+                gameName: 'PUBG Mobile',
+                userId: userId,
+                nominal: nominal,
+                payment: payment,
+                price: priceText,
+                email: email || '-',
+                phone: phone || '-'
+            };
+
+            // Populate Modal Content
+            document.getElementById('modal-product').innerText = 'PUBG Mobile';
+            document.getElementById('modal-id').innerText = userId;
+            document.getElementById('modal-nominal').innerText = nominal;
+            document.getElementById('modal-method').innerText = payment;
+            document.getElementById('modal-price').innerText = priceText;
+
+            // Show instruction based on payment method
+            const qrisContainer = document.getElementById('qris-container');
+            const emoneyContainer = document.getElementById('emoney-container');
+            const vaContainer = document.getElementById('va-container');
+
+            qrisContainer.style.display = 'none';
+            emoneyContainer.style.display = 'none';
+            vaContainer.style.display = 'none';
+
+            if (payment === 'QRIS') {
+                qrisContainer.style.display = 'block';
+            } else if (['DANA', 'GOPAY', 'SHOPEEPAY'].includes(payment)) {
+                document.getElementById('emoney-name').innerText = payment;
+                emoneyContainer.style.display = 'block';
+            } else {
+                document.getElementById('va-bank-name').innerText = payment;
+                vaContainer.style.display = 'block';
+            }
+
+            // Display Modal
+            document.getElementById('payment-modal').style.display = 'flex';
+        });
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function sendWhatsAppConfirmation() {
+            const adminNumber = "6282136292670"; // Ganti dengan nomor WhatsApp Anda
+            const order = window.activeOrder;
+            if (!order) return;
+
+            const text = `Halo Baba Store, saya ingin mengonfirmasi pembayaran pemesanan.
+
+*Detail Pemesanan:*
+- Layanan: *${order.gameName}*
+- ID/Email Akun: \`${order.userId}\`
+- Nominal: *${order.nominal}*
+- Metode Bayar: *${order.payment}*
+- Total Tagihan: *${order.price}*
+
+*Kontak Saya:*
+- Email: ${order.email}
+- No. HP: ${order.phone}
+
+_Saya akan segera mengirimkan bukti transfer di bawah chat ini._`;
+
+            window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+    </script>
+
+    <!-- Modal Pembayaran Premium -->
+    <div id="payment-modal" class="payment-modal" style="display: none;">
+        <div class="modal-backdrop" onclick="closePaymentModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Konfirmasi Pembayaran</h3>
+                <button class="close-btn" onclick="closePaymentModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="receipt-box">
+                    <p><strong>Game/Layanan:</strong> <span id="modal-product">-</span></p>
+                    <p><strong>ID Game/Akun:</strong> <span id="modal-id">-</span></p>
+                    <p><strong>Nominal:</strong> <span id="modal-nominal">-</span></p>
+                    <p><strong>Metode Pembayaran:</strong> <span id="modal-method">-</span></p>
+                    <div class="total-payment">
+                        <span>Total Pembayaran:</span>
+                        <h2 id="modal-price">Rp 0</h2>
+                    </div>
+                </div>
+                
+                <div class="qris-container" id="qris-container" style="display: none;">
+                    <p class="qris-instruction">Silakan scan QRIS DANA di bawah ini:</p>
+                    <img src="../images/qris.png" alt="QRIS Code" class="qris-image" onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://dana.id';">
+                    <span class="qris-badge">100% SECURE & FREE</span>
+                </div>
+
+                <div class="account-card" id="emoney-container" style="display: none;">
+                    <p style="margin-top: 0; margin-bottom: 8px; color: #94a3b8; font-size: 13px;">Silakan transfer ke E-Money:</p>
+                    <strong id="emoney-name" style="text-transform: uppercase;">DANA</strong>
+                    <p class="account-number">082136292670 <button onclick="navigator.clipboard.writeText('082136292670'); alert('Nomor berhasil disalin!')" class="copy-btn">Salin</button></p>
+                    <span class="account-owner">a.n. BABA STORE</span>
+                </div>
+                
+                <div class="account-card" id="va-container" style="display: none;">
+                    <p style="margin-top: 0; margin-bottom: 8px; color: #94a3b8; font-size: 13px;">Silakan transfer ke Virtual Account:</p>
+                    <strong id="va-bank-name">Bank BCA</strong>
+                    <p class="account-number">1234567890123 <button onclick="navigator.clipboard.writeText('1234567890123'); alert('Nomor VA berhasil disalin!')" class="copy-btn">Salin</button></p>
+                    <span class="account-owner">a.n. BABA STORE</span>
+                </div>
+
+                <button class="btn-confirm-wa" onclick="sendWhatsAppConfirmation()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.625 1.45 5.5.003 9.961-4.453 9.964-9.953.003-2.665-1.03-5.17-2.909-7.05C16.447 1.76 13.943.729 11.28.729c-5.505 0-9.97 4.46-9.973 9.96-.001 1.91.479 3.778 1.393 5.426l-.936 3.42 3.511-.921zm12.112-6.841c-.305-.152-1.808-.891-2.087-.993-.28-.102-.483-.152-.686.152-.203.304-.787.993-.965 1.196-.178.203-.355.228-.66.076-.304-.152-1.287-.475-2.451-1.514-.906-.807-1.517-1.805-1.695-2.11-.178-.304-.019-.468.133-.62.137-.136.305-.355.457-.532.152-.177.203-.304.305-.507.102-.203.051-.38-.025-.532-.076-.152-.686-1.654-.94-2.263-.248-.597-.501-.515-.686-.525-.177-.01-.38-.011-.584-.011-.203 0-.534.076-.814.38-.28.304-1.067 1.045-1.067 2.547 0 1.502 1.092 2.953 1.245 3.156.152.203 2.15 3.284 5.207 4.602.727.314 1.295.5 1.737.64.73.232 1.393.2 1.917.12.584-.088 1.808-.739 2.062-1.455.254-.717.254-1.332.178-1.456-.076-.124-.28-.175-.584-.327z"/>
+                    </svg>
+                    Kirim Bukti Pembayaran ke WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+<script src="../search.js"></script>
+</body>
+</html>
