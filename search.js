@@ -4,6 +4,100 @@ document.addEventListener("DOMContentLoaded", () => {
     const basePath = isSubpage ? '../' : '';
     const pagePath = isSubpage ? '' : 'card_game/';
 
+    // Dynamic injection of Mobile Menu Hamburger and Search Toggle Buttons
+    const headerLeft = document.querySelector('.header-left');
+    const mainHeader = document.querySelector('.main-header');
+    
+    if (headerLeft && mainHeader) {
+        // Create Hamburger Menu Button
+        const menuBtn = document.createElement('button');
+        menuBtn.className = 'mobile-menu-btn';
+        menuBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6H20M4 12H20M4 18H20" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        headerLeft.insertBefore(menuBtn, headerLeft.firstChild);
+
+        // Create Search Icon Button
+        const searchBtn = document.createElement('button');
+        searchBtn.className = 'mobile-search-btn';
+        searchBtn.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        mainHeader.appendChild(searchBtn);
+
+        // Create Drawer Menu & Backdrop
+        const drawer = document.createElement('div');
+        drawer.className = 'mobile-drawer';
+        drawer.innerHTML = `
+            <div class="mobile-drawer-header">
+                <a href="${isSubpage ? basePath + 'utama.html' : '#'}" class="mobile-drawer-logo">BabaStore</a>
+                <button class="mobile-drawer-close">&times;</button>
+            </div>
+            <ul class="mobile-drawer-links">
+                <li><a href="${isSubpage ? basePath + 'utama.html' : '#'}" class="drawer-home-link">Home</a></li>
+                <li><a href="${isSubpage ? basePath + 'utama.html#top-up-game' : '#top-up-game'}" class="drawer-topup-link">Top Up Game</a></li>
+                <li><a href="${isSubpage ? basePath + 'utama.html#app-pro' : '#app-pro'}" class="drawer-apppro-link">App Pro</a></li>
+                <li><a href="${isSubpage ? basePath + 'utama.html#footer' : '#footer'}" class="drawer-help-link">Bantuan</a></li>
+            </ul>
+        `;
+        document.body.appendChild(drawer);
+
+        const backdrop = document.createElement('div');
+        backdrop.className = 'mobile-drawer-backdrop';
+        document.body.appendChild(backdrop);
+
+        // Toggle Drawer logic
+        const closeBtn = drawer.querySelector('.mobile-drawer-close');
+        const toggleDrawer = () => {
+            drawer.classList.toggle('active');
+            backdrop.classList.toggle('active');
+            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+        };
+
+        menuBtn.addEventListener('click', toggleDrawer);
+        closeBtn.addEventListener('click', toggleDrawer);
+        backdrop.addEventListener('click', toggleDrawer);
+
+        // Handle drawer link clicks
+        const drawerLinks = drawer.querySelectorAll('.mobile-drawer-links a');
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                drawer.classList.remove('active');
+                backdrop.classList.remove('active');
+                document.body.style.overflow = '';
+                
+                if (!isSubpage) {
+                    const href = link.getAttribute('href');
+                    if (href.startsWith('#')) {
+                        e.preventDefault();
+                        const targetId = href.substring(1);
+                        const targetEl = document.getElementById(targetId);
+                        if (targetEl) {
+                            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            window.history.pushState(null, null, href);
+                        }
+                    }
+                }
+            });
+        });
+
+        // Toggle Mobile Search Bar input
+        const searchContainer = document.querySelector('.header-center');
+        if (searchContainer) {
+            searchBtn.addEventListener('click', () => {
+                searchContainer.classList.toggle('active');
+                if (searchContainer.classList.contains('active')) {
+                    const input = searchContainer.querySelector('input');
+                    if (input) input.focus();
+                }
+            });
+        }
+    }
+
     // 2. Product database
     const products = [
         // Games

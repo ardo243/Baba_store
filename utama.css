@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 /* Reset Dasar */
 * {
     margin: 0;
@@ -478,65 +482,433 @@ body {
 }
 
 /* Responsif Hero & Layout */
+/* Mobile Navigation and Search Toggles Button Styles */
+.mobile-menu-btn, .mobile-search-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: #a7f3d0;
+    cursor: pointer;
+    padding: 6px;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.mobile-menu-btn svg, .mobile-search-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+}
+
+/* Mobile Menu Drawer Overlay */
+.mobile-drawer {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    background-color: #0b1511;
+    border-right: 1px solid #16201a;
+    z-index: 2000;
+    padding: 30px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer.active {
+    left: 0;
+}
+
+.mobile-drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #16201a;
+    padding-bottom: 16px;
+}
+
+.mobile-drawer-logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    color: #a7f3d0;
+    text-decoration: none;
+}
+
+.mobile-drawer-close {
+    background: none;
+    border: none;
+    color: #cbd5e1;
+    font-size: 28px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.mobile-drawer-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mobile-drawer-links a {
+    text-decoration: none;
+    color: #cbd5e1;
+    font-size: 18px;
+    font-weight: 700;
+    transition: color 0.2s;
+    display: block;
+    padding: 8px 0;
+}
+
+.mobile-drawer-links a:hover,
+.mobile-drawer-links a.active {
+    color: #10b981;
+}
+
+.mobile-drawer-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.mobile-drawer-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Responsif Hero & Layout */
 @media (max-width: 992px) {
+    .mobile-menu-btn, .mobile-search-btn {
+        display: flex !important;
+    }
+
+    .hero {
+        background: radial-gradient(circle at top, #163e2e 0%, #123326 60%, #0b0f0d 100%) !important;
+        height: auto !important;
+        min-height: auto !important;
+        padding-top: 0 !important;
+        padding-bottom: 70px !important;
+    }
+
     .hero-container {
-        flex-direction: column;
-        text-align: center;
-        padding: 50px 8%;
-        gap: 40px;
+        flex-direction: column !important;
+        text-align: center !important;
+        padding: 30px 24px 0 !important;
+        gap: 0 !important;
     }
 
     .hero-left {
-        text-align: center;
-        max-width: 100%;
+        text-align: center !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
     }
 
     .hero-left h1 {
-        font-size: 2.8rem;
+        font-size: 2.2rem !important; /* Exactly matching the size in the mockup */
+        color: #a7f3d0 !important; /* Mint green text */
+        line-height: 1.25 !important;
+        font-weight: 800 !important;
+        margin-bottom: 20px !important;
+        font-family: 'Poppins', sans-serif !important;
+    }
+
+    .hero-left h1 br {
+        display: none !important; /* Hide line breaks so it wraps nicely and center-aligns */
     }
 
     .hero-left p {
-        margin: 0 auto 30px;
+        font-size: 0.95rem !important;
+        color: #cbd5e1 !important;
+        opacity: 0.8 !important;
+        line-height: 1.6 !important;
+        margin: 0 auto 32px !important;
+        text-align: center !important;
+        max-width: 480px !important;
+    }
+
+    .cta-button {
+        background-color: #a7f3d0 !important; /* Mint green button */
+        color: #123326 !important; /* Dark text */
+        font-weight: 700 !important;
+        font-size: 15px !important;
+        padding: 14px 36px !important;
+        border-radius: 50px !important; /* Fully rounded pill shape */
+        box-shadow: 0 10px 20px rgba(166, 243, 208, 0.15) !important;
+        display: inline-block !important;
+        margin: 0 auto !important;
+    }
+
+    .cta-button:hover {
+        background-color: #8ce6be !important;
+        transform: translateY(-2px) scale(1.02) !important;
     }
 
     .hero-right {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .hero-image-wrapper {
-        max-width: 320px;
+        display: none !important; /* Hide the bear image completely on mobile! */
     }
 
     .main-header {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
+        position: sticky !important; /* Sticky on mobile but compact */
+        top: 0;
+        z-index: 1000;
+        background-color: #08100d !important;
+        border-bottom: 1px solid #16201a !important;
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 14px 20px !important;
+        flex-wrap: wrap !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+    }
+
+    .logo-text {
+        color: #a7f3d0 !important;
+        font-size: 22px !important;
+        font-weight: 800 !important;
+    }
+
+    .logo img {
+        display: none !important;
+    }
+
+    .header-center {
+        display: none !important; /* Hidden by default, toggled via JS */
+        width: 100% !important;
+        order: 3 !important;
+        margin-top: 14px !important;
+        margin-bottom: 4px !important;
+    }
+
+    .header-center.active {
+        display: block !important;
     }
 
     .search-bar-container {
-        width: 100%;
-        max-width: 400px;
+        width: 100% !important;
+        max-width: 100% !important;
+        border-color: #1c2621 !important;
+        background-color: #0b0f0d !important;
+    }
+
+    .search-bar-container input {
+        color: #ffffff !important;
+    }
+
+    .search-bar-container svg path {
+        stroke: #ffffff !important;
+    }
+
+    .header-right {
+        display: none !important;
     }
 }
 
 @media (max-width: 768px) {
     .game-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
     .footer-container {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        padding: 0 24px;
+    }
+
+    /* Product order pages details responsiveness */
+    .order-container {
+        grid-template-columns: 1fr !important;
+        margin: 20px auto !important;
+        gap: 24px !important;
+    }
+
+    .product-info {
+        position: relative !important;
+        top: 0 !important;
+        padding: 20px !important;
+        border-radius: 16px !important;
+    }
+
+    .product-banner {
+        width: calc(100% + 40px) !important;
+        margin: -20px -20px 20px -20px !important;
+        height: 120px !important;
+    }
+
+    .form-section {
+        padding: 20px !important;
+        border-radius: 16px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    /* Stack inline-flex contact inputs and form inputs vertically on mobile */
+    .input-group > div[style*="display: flex"] {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .input-group > div[style*="display: flex"] input {
+        width: 100% !important;
+    }
+
+    /* Modal responsiveness and scrollability */
+    .modal-content {
+        max-height: 85vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        border-radius: 20px !important;
+    }
+
+    .modal-body {
+        overflow-y: auto !important;
+        padding: 16px 20px !important;
+    }
+
+    .receipt-box {
+        padding: 12px 16px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .receipt-box p {
+        font-size: 13px !important;
+        margin-bottom: 6px !important;
+    }
+
+    .total-payment h2 {
+        font-size: 20px !important;
+    }
+
+    .qris-image {
+        width: 160px !important;
+        height: 160px !important;
+        margin: 0 auto !important;
+    }
+
+    .account-card {
+        padding: 12px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .account-number {
+        font-size: 16px !important;
+    }
+
+    .btn-confirm-wa {
+        padding: 12px !important;
+        font-size: 14px !important;
     }
 }
 
 @media (max-width: 480px) {
     .game-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+
+    .game-card {
+        padding: 12px !important;
+        border-radius: 12px !important;
+    }
+
+    .card-img {
+        width: calc(100% + 24px) !important;
+        height: 95px !important;
+        margin: -12px -12px 12px -12px !important;
+        border-radius: 12px 12px 0 0 !important;
+    }
+
+    .card-img.contain-fit img {
+        padding: 10px !important;
+    }
+
+    .card-img.contain-fit-dark img {
+        padding: 4px !important;
+    }
+
+    .game-card h3 {
+        font-size: 0.95rem !important;
+        margin-bottom: 4px !important;
+    }
+
+    .game-card p {
+        font-size: 0.8rem !important;
     }
 
     .footer-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    /* Nominal grid on details pages */
+    .nominal-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+
+    .nominal-item {
+        padding: 12px 8px !important;
+        font-size: 12.5px !important;
+    }
+
+    .nominal-item b {
+        font-size: 13px !important;
+        margin-top: 4px !important;
+    }
+
+    /* Accordion adjustments for mobile */
+    .accordion-header {
+        padding: 14px 18px !important;
+    }
+
+    .payment-group-icon {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .payment-group-text h3 {
+        font-size: 14px !important;
+    }
+
+    .payment-group-text span {
+        font-size: 11px !important;
+    }
+
+    .accordion-content {
+        padding: 14px 18px !important;
+    }
+
+    .payment-option-card {
+        padding: 12px 16px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .payment-logo-container {
+        width: 60px !important;
+        height: 32px !important;
+    }
+
+    .payment-name {
+        font-size: 13px !important;
     }
 }
 
@@ -547,7 +919,7 @@ body {
     }
 
     .hero-left h1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
         margin-bottom: 16px;
     }
 
@@ -558,7 +930,7 @@ body {
     }
 
     .hero-image-wrapper {
-        max-width: 360px;
+        max-width: 340px;
     }
 }
 
